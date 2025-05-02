@@ -1,9 +1,9 @@
-# 🌟 BIDZZ OFFICIAL - Personal Portfolio Website
+# 🌟 tojik_proof_93 OFFICIAL - Personal Portfolio Website
 
 <div align="center">
-  <img src="Bidzz.png" alt="BIDZZ Profile" width="200" style="border-radius: 50%"/>
+  <img src="Bidzz.png" alt="tojik_proof_93 Profile" width="200" style="border-radius: 50%"/>
   
-  [![Website Status](https://img.shields.io/website?url=https%3A%2F%2Fbidzz-rawr.github.io%2FABOUT-ME&style=for-the-badge)](https://bidzz-rawr.github.io/ABOUT-ME)
+  [![Website Status](https://img.shields.io/website?url=https%3A%2F%2Fbidzz-rawr.github.io%2FABOUT-ME&style=for-the-badge)](https://FlutterGenerator.github.io/ABOUT-ME)
   [![GitHub stars](https://img.shields.io/github/stars/Muhammadabid7/ABOUT-ME?style=for-the-badge)](https://github.com/Muhammadabid7/ABOUT-ME/stargazers)
   [![GitHub forks](https://img.shields.io/github/forks/Muhammadabid7/ABOUT-ME?style=for-the-badge)](https://github.com/Muhammadabid7/ABOUT-ME/network)
   [![GitHub issues](https://img.shields.io/github/issues/Muhammadabid7/ABOUT-ME?style=for-the-badge)](https://github.com/Muhammadabid7/ABOUT-ME/issues)
@@ -41,7 +41,7 @@
 - Professional Turu (95%) 😴
 
 ## 🌐 Live Demo
-Experience the website live at: [BIDZZ Official](https://FlutterGenerator.github.io/ABOUT-ME)
+Experience the website live at: [tojik_proof_93 Official](https://FlutterGenerator.github.io/ABOUT-ME)
 
 ## 🎯 Project Structure
 
@@ -99,12 +99,12 @@ The website is fully responsive and tested on:
 - [ ] Portfolio project showcase
 - [ ] Achievement timeline
 
-## 🤝 Connect with BIDZZ
+## 🤝 Connect with tojik_proof_93
 
 - [YouTube](https://youtube.com/@BidzzOFC)
-- [GitHub](https://github.com/Muhammadabid7)
-- [Instagram](https://www.instagram.com/bidzz_ajagin/)
-- [Telegram](https://t.me/bidzz7)
+- [GitHub](https://github.com/FlutterGenerator)
+- [Instagram](https://www.instagram.com/tojik_proof_93/)
+- [Telegram](https://t.me/tojik_proof_93)
 
 ## 📜 License
 
@@ -117,7 +117,7 @@ Special thanks to all the developers and creators whose tools and libraries made
 ---
 
 <div align="center">
-  Made with 💙 by BIDZZ Official
+  Made with 💙 by tojik_proof_93 Official
   
   ⭐ Star this repo if you like it!
 </div>
