@@ -41,7 +41,7 @@
 - Professional Turu (95%) 😴
 
 ## 🌐 Live Demo
-Experience the website live at: [BIDZZ Official](https://bidzz-rawr.github.io/ABOUT-ME)
+Experience the website live at: [BIDZZ Official](https://FlutterGenerator.github.io/ABOUT-ME)
 
 ## 🎯 Project Structure
 
