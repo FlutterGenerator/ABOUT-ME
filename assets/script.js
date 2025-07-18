@@ -41,20 +41,29 @@ function updateLoadingProgress() {
     const progressBar = document.querySelector('.progress-bar-fill');
     const progressText = document.querySelector('.progress-text');
     
-    progressBar.style.width = `${progress}%`;
-    progressText.textContent = `Loading... ${Math.floor(progress)}%`;
+    if (progressBar) {
+        progressBar.style.width = `${progress}%`;
+    }
+    if (progressText) {
+        progressText.textContent = `Loading... ${Math.floor(progress)}%`;
+    }
 }
 
 // Initialize website after loading
 document.addEventListener('DOMContentLoaded', () => {
     preloadImages(() => {
         setTimeout(() => {
-            document.querySelector('.preloader').style.opacity = '0';
-            setTimeout(() => {
-                document.querySelector('.preloader').style.display = 'none';
-                document.body.classList.add('loaded');
-                initializeWebsite();
-            }, 500);
+            const preloader = document.querySelector('.preloader');
+            if (preloader) {
+                preloader.style.opacity = '0';
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                    document.body.classList.add('loaded');
+                    initializeWebsite();
+                }, 500);
+            } else {
+                initializeWebsite(); // fallback
+            }
         }, 1000);
     });
 });
@@ -70,73 +79,45 @@ function initializeWebsite() {
 
 // Initialize particles background
 function initParticles() {
-    particlesJS('particles-js', {
-        particles: {
-            number: {
-                value: 80,
-                density: {
-                    enable: true,
-                    value_area: 800
+    if (typeof particlesJS !== 'undefined') {
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#64ffda' },
+                shape: { type: 'circle' },
+                opacity: {
+                    value: 0.5,
+                    random: true,
+                    animation: { enable: true, speed: 1, opacity_min: 0.1, sync: false }
+                },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true, distance: 150, color: '#64ffda', opacity: 0.4, width: 1
+                },
+                move: {
+                    enable: true, speed: 2, direction: 'none', random: true,
+                    straight: false, out_mode: 'bounce'
                 }
             },
-            color: {
-                value: '#64ffda'
-            },
-            shape: {
-                type: 'circle'
-            },
-            opacity: {
-                value: 0.5,
-                random: true,
-                animation: {
-                    enable: true,
-                    speed: 1,
-                    opacity_min: 0.1,
-                    sync: false
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'grab' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
                 }
             },
-            size: {
-                value: 3,
-                random: true
-            },
-            line_linked: {
-                enable: true,
-                distance: 150,
-                color: '#64ffda',
-                opacity: 0.4,
-                width: 1
-            },
-            move: {
-                enable: true,
-                speed: 2,
-                direction: 'none',
-                random: true,
-                straight: false,
-                out_mode: 'bounce'
-            }
-        },
-        interactivity: {
-            detect_on: 'canvas',
-            events: {
-                onhover: {
-                    enable: true,
-                    mode: 'grab'
-                },
-                onclick: {
-                    enable: true,
-                    mode: 'push'
-                },
-                resize: true
-            }
-        },
-        retina_detect: true
-    });
+            retina_detect: true
+        });
+    }
 }
 
 // Custom cursor
 function initCursor() {
     const cursor = document.querySelector('.cursor');
     const follower = document.querySelector('.cursor-follower');
+    if (!cursor || !follower) return;
+
     let posX = 0, posY = 0;
     let mouseX = 0, mouseY = 0;
 
@@ -160,7 +141,8 @@ function initCursor() {
 // Skills animation
 function initSkillsAnimation() {
     const skillBars = document.querySelectorAll('.skill-progress');
-    
+    if (!skillBars.length) return;
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -178,6 +160,8 @@ function initSkillsAnimation() {
 function initAudio() {
     const music = document.getElementById('bgMusic');
     const toggleButton = document.getElementById('toggleMusic');
+    if (!music || !toggleButton) return;
+
     let isPlaying = false;
 
     toggleButton.addEventListener('click', () => {
@@ -195,12 +179,12 @@ function initAudio() {
 // Glitch effect for title
 function initGlitchEffect() {
     const title = document.querySelector('.cyber-glitch');
+    if (!title) return;
+
     let glitchInterval;
 
     const startGlitch = () => {
-        let iteration = 0;
         clearInterval(glitchInterval);
-
         glitchInterval = setInterval(() => {
             title.style.transform = `translate(${Math.random() * 4 - 2}px, ${Math.random() * 4 - 2}px)`;
         }, 50);

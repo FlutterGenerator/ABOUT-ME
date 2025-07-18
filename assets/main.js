@@ -1,191 +1,129 @@
-
-// Wait for DOM Content to be fully loaded
 document.addEventListener('DOMContentLoaded', () => {
-    // DOM Elements
     const preloader = document.querySelector('.preloader');
     const header = document.querySelector('.header');
     const navLinks = document.querySelector('.nav-links');
     const musicToggle = document.querySelector('.music-toggle');
     const bgMusic = document.getElementById('bgMusic');
     const themeToggle = document.querySelector('.theme-toggle');
+    const navToggle = document.querySelector('.nav-toggle');
     let isPlaying = false;
 
-    // Initialize Typed.js
-    const typed = new Typed('.typed', {
-        strings: [
-            'Game Hacker',
-            'Software Developer',
-            'Cheat Creator',
-            'Reverse Engineer',
-            'Book Reader'
-        ],
-        typeSpeed: 50,
-        backSpeed: 30,
-        loop: true,
-        backDelay: 1500,
-        startDelay: 1000
-    });
+    // === Typed.js ===
+    if (typeof Typed !== 'undefined') {
+        new Typed('.typed', {
+            strings: [
+                'Game Hacker',
+                'Software Developer',
+                'Cheat Creator',
+                'Reverse Engineer',
+                'Book Reader'
+            ],
+            typeSpeed: 50,
+            backSpeed: 30,
+            loop: true,
+            backDelay: 1500,
+            startDelay: 1000
+        });
+    } else {
+        console.warn('Typed.js not loaded');
+    }
 
-    // Initialize Particles.js
-    particlesJS('particles-js', {
-        particles: {
-            number: {
-                value: 80,
-                density: {
-                    enable: true,
-                    value_area: 800
-                }
-            },
-            color: {
-                value: '#ff0000'
-            },
-            shape: {
-                type: 'triangle',
-                stroke: {
-                    width: 0,
-                    color: '#000000'
-                }
-            },
-            opacity: {
-                value: 0.5,
-                random: false,
-                anim: {
-                    enable: false,
-                    speed: 1,
-                    opacity_min: 0.1,
-                    sync: false
-                }
-            },
-            size: {
-                value: 3,
-                random: true,
-                anim: {
-                    enable: false,
-                    speed: 40,
-                    size_min: 0.1,
-                    sync: false
-                }
-            },
-            line_linked: {
-                enable: true,
-                distance: 150,
-                color: '#ff0000',
-                opacity: 0.4,
-                width: 1
-            },
-            move: {
-                enable: true,
-                speed: 6,
-                direction: 'none',
-                random: false,
-                straight: false,
-                out_mode: 'out',
-                bounce: false,
-                attract: {
-                    enable: false,
-                    rotateX: 600,
-                    rotateY: 1200
-                }
-            }
-        },
-        interactivity: {
-            detect_on: 'canvas',
-            events: {
-                onhover: {
-                    enable: true,
-                    mode: 'repulse'
+    // === Particles.js ===
+    if (typeof particlesJS !== 'undefined') {
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#ff0000' },
+                shape: { type: 'triangle', stroke: { width: 0, color: '#000' } },
+                opacity: { value: 0.5 },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true, distance: 150, color: '#ff0000', opacity: 0.4, width: 1
                 },
-                onclick: {
-                    enable: true,
-                    mode: 'push'
-                },
-                resize: true
-            },
-            modes: {
-                repulse: {
-                    distance: 100,
-                    duration: 0.4
-                },
-                push: {
-                    particles_nb: 4
+                move: {
+                    enable: true, speed: 6, direction: 'none', random: false,
+                    straight: false, out_mode: 'out', bounce: false
                 }
-            }
-        },
-        retina_detect: true
-    });
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: { enable: true, mode: 'repulse' },
+                    onclick: { enable: true, mode: 'push' },
+                    resize: true
+                },
+                modes: {
+                    repulse: { distance: 100, duration: 0.4 },
+                    push: { particles_nb: 4 }
+                }
+            },
+            retina_detect: true
+        });
+    }
 
-    // Preloader
+    // === Preloader ===
     window.addEventListener('load', () => {
         setTimeout(() => {
-            preloader.style.opacity = '0';
+            if (preloader) preloader.style.opacity = '0';
             setTimeout(() => {
-                preloader.style.display = 'none';
+                if (preloader) preloader.style.display = 'none';
             }, 500);
         }, 1500);
     });
 
-    // Scroll Effects
+    // === Scroll Effects ===
     window.addEventListener('scroll', () => {
-        // Header Background
-        if (window.scrollY > 50) {
-            header.classList.add('scrolled');
-        } else {
-            header.classList.remove('scrolled');
+        if (header) {
+            header.classList.toggle('scrolled', window.scrollY > 50);
         }
-
-        // Reveal Elements on Scroll
-        document.querySelectorAll('.reveal').forEach(element => {
-            const elementTop = element.getBoundingClientRect().top;
-            const windowHeight = window.innerHeight;
-
-            if (elementTop < windowHeight - 100) {
-                element.classList.add('active');
+        document.querySelectorAll('.reveal').forEach(el => {
+            const elementTop = el.getBoundingClientRect().top;
+            if (elementTop < window.innerHeight - 100) {
+                el.classList.add('active');
             }
         });
     });
 
-    // Smooth Scrolling
+    // === Smooth Scroll ===
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
+        anchor.addEventListener('click', (e) => {
             e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            
+            const target = document.querySelector(anchor.getAttribute('href'));
             if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-                
-                // Close mobile navigation if open
-                navLinks.classList.remove('active');
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                if (navLinks) navLinks.classList.remove('active');
             }
         });
     });
 
-    // Background Music Control
-    musicToggle.addEventListener('click', () => {
-        if (!isPlaying) {
-            bgMusic.play();
-            musicToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
-            isPlaying = true;
-        } else {
-            bgMusic.pause();
-            musicToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
-            isPlaying = false;
-        }
-    });
+    // === Music Control ===
+    if (musicToggle && bgMusic) {
+        musicToggle.addEventListener('click', () => {
+            isPlaying = !isPlaying;
+            if (isPlaying) {
+                bgMusic.play();
+                musicToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
+            } else {
+                bgMusic.pause();
+                musicToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            }
+        });
+    }
 
-    // Theme Toggle
-    themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('light-theme');
-        const icon = themeToggle.querySelector('i');
-        icon.classList.toggle('fa-moon');
-        icon.classList.toggle('fa-sun');
-    });
+    // === Theme Toggle ===
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-theme');
+            const icon = themeToggle.querySelector('i');
+            if (icon) {
+                icon.classList.toggle('fa-moon');
+                icon.classList.toggle('fa-sun');
+            }
+        });
+    }
 
-    // Glitch Effect
-    const glitchTexts = document.querySelectorAll('.glitch-text');
-    glitchTexts.forEach(text => {
+    // === Glitch Text Effect ===
+    document.querySelectorAll('.glitch-text').forEach(text => {
         setInterval(() => {
             text.classList.add('active');
             setTimeout(() => {
@@ -194,81 +132,77 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
     });
 
-    // Form Submission
+    // === Contact Form Submission ===
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            // Add your form submission logic here
             alert('Message sent successfully!');
             contactForm.reset();
         });
     }
 
-    // Image Lazy Loading
+    // === Lazy Load Images ===
     const images = document.querySelectorAll('img[loading="lazy"]');
-    const imageOptions = {
-        threshold: 0,
-        rootMargin: '0px 0px 50px 0px'
-    };
-
     const imageObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const img = entry.target;
-                img.src = img.dataset.src;
-                img.classList.add('loaded');
-                observer.unobserve(img);
+                if (img.dataset.src) {
+                    img.src = img.dataset.src;
+                    img.classList.add('loaded');
+                    observer.unobserve(img);
+                }
             }
         });
-    }, imageOptions);
+    }, { threshold: 0, rootMargin: '0px 0px 50px 0px' });
 
     images.forEach(img => imageObserver.observe(img));
 
-    // Mobile Navigation Toggle
-    const navToggle = document.querySelector('.nav-toggle');
-    if (navToggle) {
+    // === Mobile Nav Toggle ===
+    if (navToggle && navLinks) {
         navToggle.addEventListener('click', () => {
             navLinks.classList.toggle('active');
         });
+
+        document.addEventListener('click', (e) => {
+            if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
     }
 
-    // Close mobile nav when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) {
-            navLinks.classList.remove('active');
-        }
-    });
-
-    // Prevent FOUC (Flash of Unstyled Content)
+    // === FOUC Prevention ===
     document.documentElement.classList.remove('no-js');
 
-    // Handle page visibility change
+    // === Visibility Change (Pause music) ===
     document.addEventListener('visibilitychange', () => {
-        if (document.hidden && isPlaying) {
-            bgMusic.pause();
-        } else if (!document.hidden && isPlaying) {
-            bgMusic.play();
+        if (bgMusic && isPlaying) {
+            if (document.hidden) {
+                bgMusic.pause();
+            } else {
+                bgMusic.play();
+            }
         }
     });
 
-    // Error handling
-    window.onerror = function(msg, url, lineNo, columnNo, error) {
-        console.error('Error: ' + msg + '\nURL: ' + url + '\nLine: ' + lineNo);
+    // === Global JS Error Catch ===
+    window.onerror = function (msg, url, lineNo, columnNo, error) {
+        console.error(`Error: ${msg}\nURL: ${url}\nLine: ${lineNo}`);
         return false;
     };
 
-    // Performance optimization
-    window.requestAnimationFrame = window.requestAnimationFrame || 
-        window.webkitRequestAnimationFrame || 
-        window.mozRequestAnimationFrame || 
-        function(callback) {
+    // === Fallback for requestAnimationFrame ===
+    window.requestAnimationFrame = window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        function (callback) {
             window.setTimeout(callback, 1000 / 60);
         };
 });
 
-// Service Worker Registration
-if ('serviceWorker' in navigator) {
+// === Safe Service Worker Registration ===
+if ('serviceWorker' in navigator && location.protocol === 'https:') {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js')
             .then(registration => {
@@ -278,4 +212,6 @@ if ('serviceWorker' in navigator) {
                 console.log('ServiceWorker registration failed', err);
             });
     });
+} else {
+    console.warn('ServiceWorker not registered: unsupported environment (file:// or insecure)');
 }
